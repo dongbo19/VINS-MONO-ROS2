@@ -75,4 +75,7 @@ rviz2                                               # subscribe topics "AR_objec
 ros2 bag play $(PATH_TO_YOUR_DATASET)/ar_box        # for ros2 bag
 ```
 # 4. Acknowledgements
-We use ros1 version of [VINS MONO](https://github.com/HKUST-Aerial-Robotics/VINS-Mono)
+We use ros1 version of [VINS MONO](https://github.com/HKUST-Aerial-Robotics/VINS-Mono),  [ceres solver](http://ceres-solver.org/installation.html) for non-linear optimization, [DBoW2](https://github.com/dorian3d/DBoW2) for loop detection, and a generic [camera model](https://github.com/hengli/camodocal). Also, we also referred to parts of the implementations from [VINS-FUSION-ROS2](https://github.com/zinuok/VINS-Fusion-ROS2) and [vins-mono-ros2](https://github.com/hitzzq/vins-mono-ros2).
+
+# 5. Licence
+The source code is released under [GPLv3](https://www.gnu.org/licenses/) license.
