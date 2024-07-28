@@ -72,7 +72,7 @@ ros2 bag play $(PATH_TO_YOUR_DATASET)/MH_01_easy                      # for ros2
 ![mh01_benchmark](https://github.com/dongbo19/VINS-MONO-ROS2/blob/main/config/gif/vins_ros2_benchmark_mh01.gif)
 ![mh02_benchmark](https://github.com/dongbo19/VINS-MONO-ROS2/blob/main/config/gif/vins_ros2_benchmark_mh02.gif)
 ## 3.4. AR Demo
-Download the [bag file](https://www.dropbox.com/scl/fi/q18lot4bfs1fqrctclz7b/ar_box.bag?rlkey=16yrxnwnt2fcutwwzwhlevd1n&e=1&dl=0), and then three terminals  
+Download the [bag file](https://www.dropbox.com/scl/fi/q18lot4bfs1fqrctclz7b/ar_box.bag?rlkey=16yrxnwnt2fcutwwzwhlevd1n&e=1&dl=0), and then open three terminals  
 ```
 ros2 launch ar_demo 3dm_bag.launch.py               # for featuer tracking, backend optimization and ar demo.
 rviz2                                               # subscribe topics "AR_object" and "AR_image"
