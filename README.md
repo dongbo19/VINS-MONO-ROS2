@@ -52,7 +52,7 @@ ros2 bag play $(PATH_TO_YOUR_DATASET)/MH_01_easy                        # for ro
 ![mh05](https://github.com/dongbo19/VINS-MONO-ROS2/blob/main/config/gif/vins_ros2_mh05.gif)
 ![v101](https://github.com/dongbo19/VINS-MONO-ROS2/blob/main/config/gif/vins_ros2_v101.gif)
 ## 3.3. Visualize ground truch
-First, take MH01 for example, modifying the **'sequence_name'** in the launch file: 
+First, take MH01 for example, modifying the **'sequence_name'** and **'data_path'** in the launch file: 
 **_benchmark_publisher/launch/benchmark_publisher.launch.py_**
 ```
 sequence_name_arg = DeclareLaunchArgument(
@@ -60,6 +60,13 @@ sequence_name_arg = DeclareLaunchArgument(
     default_value='MH_01_easy',
     description='Sequence name for the benchmark'
 )
+    sequence_name = LaunchConfiguration('sequence_name')
+    
+data_path = PathJoinSubstitution([
+    '$(PATH_TO_YOUR_ROS2_WS)/src/VINS_MONO/benchmark_publisher/config',
+    sequence_name,
+    'data.csv'
+])
 ```
 Then, open five terminals, launch the feature_tracker, vins_estimator, benchmark_mark, rviz2, and ros2 bag.
 ```
