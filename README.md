@@ -93,6 +93,7 @@ DeclareLaunchArgument(
     default_value='$(PATH_TO_YOUR_ROS2_WS)/src/VINS_MONO/config/../',
     description='Path to VINS folder'
 )
+```
 And then open three terminals  
 ```
 ros2 launch ar_demo 3dm_bag.launch.py               # for featuer tracking, backend optimization and ar demo.
