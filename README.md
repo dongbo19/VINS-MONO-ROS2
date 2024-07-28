@@ -49,6 +49,8 @@ ros2 launch vins_estimator euroc.launch.py                              # for ba
 rviz2 -d $(PATH_TO_YOUR_ROS2_WS)/src/VINS_MONO/config/vins_rviz.rviz    # for rviz2
 ros2 bag play $(PATH_TO_YOUR_DATASET)/MH_01_easy                        # for ros2 bag
 ```
+![mh05](https://github.com/dongbo19/VINS-MONO-ROS2/blob/main/config/gif/vins_ros2_mh05.gif)
+![v101](https://github.com/dongbo19/VINS-MONO-ROS2/blob/main/config/gif/vins_ros2_v101.gif)
 ## 3.3. Visualize ground truch
 First, take MH01 for example, modifying the **'sequence_name'** in the launch file: 
 **_benchmark_publisher/launch/benchmark_publisher.launch.py_**
@@ -67,6 +69,8 @@ ros2 launch benchmark_publisher benchmark_publisher.launch.py         # for benc
 rviz2 -d $(PATH_TO_YOUR_ROS2_WS)/src/VINS_MONO/config/vins_rviz.rviz  # for rviz2
 ros2 bag play $(PATH_TO_YOUR_DATASET)/MH_01_easy                      # for ros2 bag
 ```
+![mh01_benchmark](https://github.com/dongbo19/VINS-MONO-ROS2/blob/main/config/gif/vins_ros2_benchmark_mh01.gif)
+![mh02_benchmark](https://github.com/dongbo19/VINS-MONO-ROS2/blob/main/config/gif/vins_ros2_benchmark_mh02.gif)
 ## 3.4. AR Demo
 Download the [bag file](https://www.dropbox.com/scl/fi/q18lot4bfs1fqrctclz7b/ar_box.bag?rlkey=16yrxnwnt2fcutwwzwhlevd1n&e=1&dl=0), and then three terminals  
 ```
@@ -74,6 +78,7 @@ ros2 launch ar_demo 3dm_bag.launch.py               # for featuer tracking, back
 rviz2                                               # subscribe topics "AR_object" and "AR_image"
 ros2 bag play $(PATH_TO_YOUR_DATASET)/ar_box        # for ros2 bag
 ```
+![ar_demo](https://github.com/dongbo19/VINS-MONO-ROS2/blob/main/config/gif/vins_ros2_ar_demo.gif)
 # 4. Acknowledgements
 We use ros1 version of [VINS MONO](https://github.com/HKUST-Aerial-Robotics/VINS-Mono),  [ceres solver](http://ceres-solver.org/installation.html) for non-linear optimization, [DBoW2](https://github.com/dorian3d/DBoW2) for loop detection, and a generic [camera model](https://github.com/hengli/camodocal). Also, we also referred to parts of the implementations from [VINS-FUSION-ROS2](https://github.com/zinuok/VINS-Fusion-ROS2) and [vins-mono-ros2](https://github.com/hitzzq/vins-mono-ros2).
 
