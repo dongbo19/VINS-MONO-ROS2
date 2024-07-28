@@ -22,7 +22,7 @@ colcon build
 Download [EuRoC datasets](https://projects.asl.ethz.ch/datasets/doku.php?id=kmavvisualinertialdatasets). However, the datasets are in ROS1 format. To run the code in ROS2, we need to first convert these datasets to ROS2 format. We can use [rosbags](https://pypi.org/project/rosbags/) for this purpose, which can convert ROS built-in messages between ROS1 and ROS2.  
 ## 3.2. Visual-inertial odometry and loop closure
 To properly read the configuration files, please update the arguments in the launch files with the absolute path on your computer.  
-For example, modify the **'config_path'** and **'vins_path'** in two launch files:  
+First, modify the **'config_path'** and **'vins_path'** in two launch files:  
 **_feature_tracker/launch/vins_feature_tracker.launch.py_** and **_vins_estimator/launch/euroc.launch.py_** 
 ```
 DeclareLaunchArgument(
@@ -36,8 +36,43 @@ DeclareLaunchArgument(
     description='Path to the VINS folder'
 ),
 ```
-PS: After modifying the launch files in the corresponding packages, don't forget to run **_colcon build_** for those packages again.  
-Then we can run the launch files. Open four terminal, launch the feature_tracker, vins_estimator, rviz2, and ros2 bag. Take MH01 for example
+Then, modify the **'support_path'** in **_'$(PATH_TO_YOUR_ROS2_WS)/src/VINS_MONO/config/euroc/euroc_config.yaml'_**
 ```
-
+#loop closure parameters
+support_path: "$(PATH_TO_YOUR_ROS2_WS)/src/VINS_MONO/support_files"
 ```
+**PS: After modifying the launch files in the corresponding packages, don't forget to run **_colcon build_** for those packages again.**  
+Then we can run the launch files. Open four terminals, launch the feature_tracker, vins_estimator, rviz2, and ros2 bag. Take MH01 for example
+```
+ros2 launch feature_tracker vins_feature_tracker.launch.py              # for feature tracking
+ros2 launch vins_estimator euroc.launch.py                              # for backend optimization and loop closure
+rviz2 -d $(PATH_TO_YOUR_ROS2_WS)/src/VINS_MONO/config/vins_rviz.rviz    # for rviz2
+ros2 bag play $(PATH_TO_YOUR_DATASET)/MH_01_easy                        # for ros2 bag
+```
+## 3.3. Visualize ground truch
+First, take MH01 for example, modifying the **'sequence_name'** in the launch file: 
+**_benchmark_publisher/launch/benchmark_publisher.launch.py_**
+```
+sequence_name_arg = DeclareLaunchArgument(
+    'sequence_name',
+    default_value='MH_01_easy',
+    description='Sequence name for the benchmark'
+)
+```
+Then, open five terminals, launch the feature_tracker, vins_estimator, benchmark_mark, rviz2, and ros2 bag.
+```
+ros2 launch feature_tracker vins_feature_tracker.launch.py            # for feature tracking
+ros2 launch vins_estimator euroc.launch.py                            # for backend optimization and loop closure
+ros2 launch benchmark_publisher benchmark_publisher.launch.py         # for benchmark
+rviz2 -d $(PATH_TO_YOUR_ROS2_WS)/src/VINS_MONO/config/vins_rviz.rviz  # for rviz2
+ros2 bag play $(PATH_TO_YOUR_DATASET)/MH_01_easy                      # for ros2 bag
+```
+## 3.4. AR Demo
+Download the [bag file](https://www.dropbox.com/scl/fi/q18lot4bfs1fqrctclz7b/ar_box.bag?rlkey=16yrxnwnt2fcutwwzwhlevd1n&e=1&dl=0), and then three terminals  
+```
+ros2 launch ar_demo 3dm_bag.launch.py               # for featuer tracking, backend optimization and ar demo.
+rviz2                                               # subscribe topics "AR_object" and "AR_image"
+ros2 bag play $(PATH_TO_YOUR_DATASET)/ar_box        # for ros2 bag
+```
+# 4. Acknowledgements
+We use ros1 version of [VINS MONO](https://github.com/HKUST-Aerial-Robotics/VINS-Mono)
