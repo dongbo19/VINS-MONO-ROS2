@@ -492,6 +492,8 @@ int main(int argc, char **argv)
         COL = fsSettings["image_width"];
         // std::string pkg_path = ament_index_cpp::get_package_share_directory("pose_graph");
         std::string support_path = fsSettings["support_path"];
+        n->declare_parameter<std::string>("support_file", "");
+        n->get_parameter("support_file", support_path);
         string vocabulary_file = support_path + "/../support_files/brief_k10L6.bin";
         cout << "vocabulary_file: " << vocabulary_file << endl;
         posegraph.loadVocabulary(vocabulary_file);
