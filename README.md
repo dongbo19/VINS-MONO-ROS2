@@ -14,7 +14,7 @@ This repository implements the ROS2 version of VINS-MONO, mainly including the f
 # 2. Prerequisites
 * System  
   * Ubuntu 20.04  
-  * ROS2 Galactic
+  * ROS2 foxy
 * Libraries
   * OpenCV 4.2.0
   * [Ceres Solver](http://ceres-solver.org/installation.html) 1.14.0
@@ -43,11 +43,10 @@ First, modify the **'ros2_ws_path_arg'** in two launch files:
  )
 ```
 **PS: After modifying the launch files in the corresponding packages, don't forget to run **_colcon build_** for those packages again.**  
-Then we can run the launch files. Open four terminals, launch the feature_tracker, vins_estimator, rviz2, and ros2 bag. Take MH01 for example
+Then we can run the launch files. Open three terminals, launch the feature_tracker, vins_estimator, rviz2, and ros2 bag. Take MH01 for example
 ```
-ros2 launch feature_tracker vins_feature_tracker.launch.py              # for feature tracking
+ros2 launch feature_tracker vins_feature_tracker.launch.py              # for feature tracking and rviz2
 ros2 launch vins_estimator euroc.launch.py                              # for backend optimization and loop closure
-rviz2 -d $(PATH_TO_YOUR_ROS2_WS)/src/VINS_MONO/config/vins_rviz.rviz    # for rviz2
 ros2 bag play $(PATH_TO_YOUR_DATASET)/MH_01_easy                        # for ros2 bag
 ```
 ![mh05](https://github.com/dongbo19/VINS-MONO-ROS2/blob/main/config/gif/vins_ros2_mh05.gif)
@@ -68,19 +67,17 @@ sequence_name_arg = DeclareLaunchArgument(
 )
 sequence_name = LaunchConfiguration('sequence_name')
 ```
-Then, open five terminals, launch the feature_tracker, vins_estimator, benchmark_mark, rviz2, and ros2 bag.
+Then, open four terminals, launch the feature_tracker, vins_estimator, benchmark_mark, rviz2, and ros2 bag.
 ```
-ros2 launch feature_tracker vins_feature_tracker.launch.py            # for feature tracking
+ros2 launch feature_tracker vins_feature_tracker.launch.py            # for feature tracking and rviz2
 ros2 launch vins_estimator euroc.launch.py                            # for backend optimization and loop closure
 ros2 launch benchmark_publisher benchmark_publisher.launch.py         # for benchmark
-rviz2 -d $(PATH_TO_YOUR_ROS2_WS)/src/VINS_MONO/config/vins_rviz.rviz  # for rviz2
 ros2 bag play $(PATH_TO_YOUR_DATASET)/MH_01_easy                      # for ros2 bag
 ```
 ![mh01_benchmark](https://github.com/dongbo19/VINS-MONO-ROS2/blob/main/config/gif/vins_ros2_benchmark_mh01.gif)
 ![mh02_benchmark](https://github.com/dongbo19/VINS-MONO-ROS2/blob/main/config/gif/vins_ros2_benchmark_mh02.gif)
 ## 4.4. AR Demo
-Download the [bag file](https://www.dropbox.com/scl/fi/q18lot4bfs1fqrctclz7b/ar_box.bag?rlkey=16yrxnwnt2fcutwwzwhlevd1n&e=1&dl=0).  
-Modify the **'ros2_ws_path_arg'** in the launch file:  
+First, Download the [bag file](https://www.dropbox.com/scl/fi/q18lot4bfs1fqrctclz7b/ar_box.bag?rlkey=16yrxnwnt2fcutwwzwhlevd1n&e=1&dl=0). Then, modify the **'ros2_ws_path_arg'** in the launch file:  
 **_ar_demo/launch/3dm_bag.launch.py_**
 ```
 ros2_ws_path_arg = DeclareLaunchArgument(
@@ -89,15 +86,21 @@ ros2_ws_path_arg = DeclareLaunchArgument(
     description='Path to the ros2 ws'
 )
 ```
-And then open three terminals  
+And then open two terminals  
 ```
-ros2 launch ar_demo 3dm_bag.launch.py               # for featuer tracking, backend optimization and ar demo.
-rviz2                                               # subscribe topics "AR_object" and "AR_image"
+ros2 launch ar_demo 3dm_bag.launch.py               # for featuer tracking, backend optimization, ar demo and rviz2.
 ros2 bag play $(PATH_TO_YOUR_DATASET)/ar_box        # for ros2 bag
 ```
 ![ar_demo](https://github.com/dongbo19/VINS-MONO-ROS2/blob/main/config/gif/vins_ros2_ar_demo.gif)
-# 5. Acknowledgements
+# 5. Run your own datasets
+If you want to run your own collected dataset, please modify the path of your configuration files in launch files, such as **_ros2_ws_path_arg_** in these launch files:  
+(a). **_feature_tracker/launch/vins_feature_tracker.launch.py_**  
+(b). **_vins_estimator/launch/euroc.launch.py_**  
+(c). **_benchmark_publisher/launch/benchmark_publisher.launch.py_**  
+(d). **_ar_demo/launch/3dm_bag.launch.py_**  
+How to modify **_ros2_ws_path_arg_** in these launch files has been detailed in Section 4.
+# 6. Acknowledgements
 We use ros1 version of [VINS MONO](https://github.com/HKUST-Aerial-Robotics/VINS-Mono),  [ceres solver](http://ceres-solver.org/installation.html) for non-linear optimization, [DBoW2](https://github.com/dorian3d/DBoW2) for loop detection, and a generic [camera model](https://github.com/hengli/camodocal). Also, we referred to parts of the implementations from [VINS-FUSION-ROS2](https://github.com/zinuok/VINS-Fusion-ROS2) and [vins-mono-ros2](https://github.com/hitzzq/vins-mono-ros2).
 
-# 6. Licence
+# 7. Licence
 The source code is released under [GPLv3](https://www.gnu.org/licenses/) license.
