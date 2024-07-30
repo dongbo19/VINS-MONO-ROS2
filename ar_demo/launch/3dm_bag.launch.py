@@ -55,9 +55,24 @@ def generate_launch_description():
                     {'use_undistored_img': False}]
     )
 
+    rviz_config_path = PathJoinSubstitution([
+        ros2_ws_path,
+        'config/ar_demo_rviz.rviz'
+    ])
+
+    rviz_node = Node(
+        package='rviz2',
+        executable='rviz2',
+        name='rviz2',
+        arguments=['-d', rviz_config_path],
+        output='screen'
+    )
+
+
     return LaunchDescription([
         ros2_ws_path_arg,
         feature_tracker_node,
         vins_estimator_node,
-        ar_demo_node
+        ar_demo_node,
+        rviz_node
     ])
