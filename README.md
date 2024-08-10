@@ -35,7 +35,7 @@ colcon build
 Download [EuRoC datasets](https://projects.asl.ethz.ch/datasets/doku.php?id=kmavvisualinertialdatasets). However, the datasets are in ROS1 format. To run the code in ROS2, we need to first convert these datasets to ROS2 format. We can use [rosbags](https://pypi.org/project/rosbags/) for this purpose, which can convert ROS built-in messages between ROS1 and ROS2.  
 ## 4.2. Visual-inertial odometry and loop closure
 All configuration files are in the package, **_config_pkg_**, so in launch files, the path to the EuRoC configuration files is found using **_get_package_share_directory('config_pkg')_**.  
-Open three terminals, launch the feature_tracker, vins_estimator, rviz2, and ros2 bag. Take MH01 for example
+Open three terminals, launch the feature_tracker, vins_estimator, rviz2, and ros2 bag. Take the MH01 for example
 ```
 ros2 launch feature_tracker vins_feature_tracker.launch.py              # for feature tracking and rviz2
 ros2 launch vins_estimator euroc.launch.py                              # for backend optimization and loop closure
@@ -44,7 +44,7 @@ ros2 bag play $(PATH_TO_YOUR_DATASET)/MH_01_easy                        # for ro
 ![mh05](https://github.com/dongbo19/VINS-MONO-ROS2/blob/main/config_pkg/config/gif/vins_ros2_mh05.gif)
 ![v101](https://github.com/dongbo19/VINS-MONO-ROS2/blob/main/config_pkg/config/gif/vins_ros2_v101.gif)
 ## 4.3. Visualize ground truch
-First, take MH01 for example, modifying the **'sequence_name'** in the launch file: 
+First, take the MH01 for example, modifying the **'sequence_name'** in the launch file: 
 **_benchmark_publisher/launch/benchmark_publisher.launch.py_**
 ```
 sequence_name_arg = DeclareLaunchArgument(
