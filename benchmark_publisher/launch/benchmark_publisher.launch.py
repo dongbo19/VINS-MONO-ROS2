@@ -1,16 +1,12 @@
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, LogInfo
+from ament_index_python.packages import get_package_share_directory
 from launch.substitutions import LaunchConfiguration, TextSubstitution, PathJoinSubstitution, PythonExpression
 from launch_ros.actions import Node
 
 def generate_launch_description():
-    ros2_ws_path_arg = DeclareLaunchArgument(
-        'ros2_ws_path',
-        default_value='/home/db/ros2_ws/vins_ws/src/VINS-MONO-ROS2',
-        description='Path to the ros2 ws'
-    )
 
-    ros2_ws_path = LaunchConfiguration('ros2_ws_path')
+    benchmark_pkg_path = get_package_share_directory('benchmark_publisher')
 
     sequence_name_arg = DeclareLaunchArgument(
         'sequence_name',
@@ -21,13 +17,11 @@ def generate_launch_description():
     sequence_name = LaunchConfiguration('sequence_name')
     
     data_path = PathJoinSubstitution([
-        ros2_ws_path,
-        'benchmark_publisher/config',
+        benchmark_pkg_path,
+        'config',
         sequence_name,
         'data.csv'
     ])
-
-    log_data_path = LogInfo(msg=['Data path: ', data_path])
 
     benchmark_publisher_node = Node(
         package='benchmark_publisher',
@@ -41,8 +35,6 @@ def generate_launch_description():
     )
 
     return LaunchDescription([
-        ros2_ws_path_arg,
         sequence_name_arg,
-        log_data_path,
-        benchmark_publisher_node,
+        benchmark_publisher_node
     ])

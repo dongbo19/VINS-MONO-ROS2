@@ -1,24 +1,20 @@
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument
+from ament_index_python.packages import get_package_share_directory
 from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
 from launch_ros.actions import Node
 
 def generate_launch_description():
-    ros2_ws_path_arg = DeclareLaunchArgument(
-        'ros2_ws_path',
-        default_value='/home/db/ros2_ws/vins_ws/src/VINS-MONO-ROS2',
-        description='Path to the ros2 ws'
-    )
 
-    ros2_ws_path = LaunchConfiguration('ros2_ws_path')
+    config_pkg_path = get_package_share_directory('config_pkg')
 
     config_path = PathJoinSubstitution([
-        ros2_ws_path,
+        config_pkg_path,
         'config/3dm/3dm_config.yaml'
     ])
 
     vins_path = PathJoinSubstitution([
-        ros2_ws_path,
+        config_pkg_path,
         'config/../'
     ])
     
@@ -56,7 +52,7 @@ def generate_launch_description():
     )
 
     rviz_config_path = PathJoinSubstitution([
-        ros2_ws_path,
+        config_pkg_path,
         'config/ar_demo_rviz.rviz'
     ])
 
@@ -70,7 +66,6 @@ def generate_launch_description():
 
 
     return LaunchDescription([
-        ros2_ws_path_arg,
         feature_tracker_node,
         vins_estimator_node,
         ar_demo_node,
