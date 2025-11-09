@@ -1,5 +1,6 @@
 # VINS-MONO-ROS2
 ## ROS2 version of VINS-MONO
+**New: Code has been adapted for Ubuntu 24.04. See the ros2_jazzy branch for details.**
 # 1. Introduction
 This repository implements the ROS2 version of VINS-MONO, mainly including the following packages:
 * **camera_model**
