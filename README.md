@@ -1,5 +1,5 @@
 # VINS-MONO-ROS2
-## ROS2 version of VINS-MONO
+## ROS2 jazzy version of VINS-MONO
 # 1. Introduction
 This repository implements the ROS2 version of VINS-MONO, mainly including the following packages:
 * **camera_model**
@@ -16,12 +16,12 @@ This repository implements the ROS2 version of VINS-MONO, mainly including the f
 ![mh02](https://github.com/dongbo19/VINS-MONO-ROS2/blob/main/config_pkg/config/gif/vins_ros2_mh02.gif)
 # 2. Prerequisites
 * System  
-  * Ubuntu 20.04  
-  * ROS2 foxy
+  * Ubuntu 24.04  
+  * ROS2 jazzy
 * Libraries
-  * OpenCV 4.2.0
-  * [Ceres Solver](http://ceres-solver.org/installation.html) 1.14.0
-  * Eigen 3.3.7
+  * OpenCV 4.8.0
+  * [Ceres Solver](http://ceres-solver.org/installation.html) 2.1.0
+  * Eigen 3.4.0
 # 3. Build VINS-MONO-ROS2
 Clone the repository and colcon build:  
 ```
